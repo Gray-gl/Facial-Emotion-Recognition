@@ -10,7 +10,7 @@ class RootSIFT:
 		if is_cv2():
 			self.extractor = cv2.DescriptorExtractor_create("SIFT")
 
-		# otherwise initialize the SIFT feature extractor for OpenCV 3+
+		# otherwise initialize the SIFT feature extractor for OpenCV 3-21+
 		else:
 			self.extractor = cv2.xfeatures2d.SIFT_create()
 

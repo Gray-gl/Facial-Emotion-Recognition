@@ -7,15 +7,13 @@ import os
 
 # 为每一张图片创造一个hash值，用来进行区分
 def dhash(image, hashSize=8):
-    # convert the image to grayscale and resize the grayscale image,
-    # adding a single column (width) so we can compute the horizontal
-    # gradient
+    # 将图片转为灰度模式，并调整大小，同时增加一单独的一列，表示宽度
+    # 计算图片的水平梯度
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     resized = cv2.resize(gray, (hashSize + 1, hashSize))
-    # compute the (relative) horizontal gradient between adjacent
-    # column pixels
+    # 计算相邻列之间的水平梯度
     diff = resized[:, 1:] > resized[:, :-1]
-    # convert the difference image to a hash and return it
+    # 将不同的图片转为一个hash并进行转变
     return sum([2 ** i for (i, v) in enumerate(diff.flatten()) if v])
 
 
@@ -32,7 +30,9 @@ args = vars(ap.parse_args())
 # grab the paths to all images in our input dataset directory and
 # then initialize our hashes dictionary
 print("[INFO] computing image hashes...")
+print(args["dataset"])
 imagePaths = list(paths.list_images(args["dataset"]))
+print(imagePaths)
 hashes = {}
 
 # loop over our image paths
@@ -79,5 +79,12 @@ for (h, hashedPaths) in hashes.items():
             # loop over all image paths with the same hash *except*
             # for the first image in the list (since we want to keep
             # one, and only one, of the duplicate images)
+            print("[INFO] delete {}".format(p))
             for p in hashedPaths[1:]:
                 os.remove(p)
+
+
+##########################################
+# 执行的命令,注意切换到当前python文件所在目录
+# python remove_duplicate.py --dataset ./tired --remove 1
+##########################################

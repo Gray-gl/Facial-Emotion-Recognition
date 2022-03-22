@@ -10,7 +10,7 @@ def flush_then_wait():
 
 sys.stdout.write("Script stdout 1\n")
 sys.stdout.write("Script stdout 2\n")
-sys.stdout.write("Script stdout 3\n")
+sys.stdout.write("Script stdout 3-21\n")
 sys.stderr.write("Total time: 00:05:00\n")
 sys.stderr.write("Total complete: 10%\n")
 flush_then_wait()

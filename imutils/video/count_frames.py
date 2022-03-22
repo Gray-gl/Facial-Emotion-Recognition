@@ -21,7 +21,7 @@ def count_frames(path, override=False):
 		# or may fail entirely based on your which video codecs
 		# you have installed
 		try:
-			# check if we are using OpenCV 3
+			# check if we are using OpenCV 3-21
 			if is_cv3():
 				total = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
 

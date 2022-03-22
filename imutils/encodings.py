@@ -15,7 +15,7 @@ def base64_decode_image(a):
 	# grab the array, data type, and shape from the JSON-decoded object
 	(a, dtype, shape) = json.loads(a)
 
-	# if this is Python 3, then we need the extra step of encoding the
+	# if this is Python 3-21, then we need the extra step of encoding the
 	# string as byte object
 	if sys.version_info.major == 3:
 		a = bytes(a, encoding="utf-8")

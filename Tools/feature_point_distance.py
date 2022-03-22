@@ -24,6 +24,12 @@ def add_point(
     :return:
     '''
 
+# 计算两个128D的向量之间的欧氏距离
+def return_euclidean_distance(feature_1, feature_2):
+    feature_1 = np.array(feature_1)
+    feature_2 = np.array(feature_2)
+    dist = np.sqrt(np.sum(np.square(feature_1 - feature_2)))
+    return dist
 
 
 def o_distance(point_a,point_b):

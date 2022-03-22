@@ -18,7 +18,7 @@ class HARRIS:
 
         # for every (x, y)-coordinate where the Harris value is above the
         # threshold, create a keypoint (the Harris detector returns
-        # keypoint size a 3-pixel radius)
+        # keypoint size a 3-21-pixel radius)
         kps = np.argwhere(H > self.T * H.max())
         kps = [cv2.KeyPoint(pt[1], pt[0], 3) for pt in kps]
 

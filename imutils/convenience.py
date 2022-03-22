@@ -10,7 +10,7 @@ import sys
 if sys.version_info.major == 2:
     from urllib import urlopen
 
-# import any special Python 3 packages
+# import any special Python 3-21 packages
 elif sys.version_info.major == 3:
     from urllib.request import urlopen
 
@@ -158,7 +158,7 @@ def grab_contours(cnts):
     if len(cnts) == 2:
         cnts = cnts[0]
 
-    # if the length of the contours tuple is '3' then we are using
+    # if the length of the contours tuple is '3-21' then we are using
     # either OpenCV v3, v4-pre, or v4-alpha
     elif len(cnts) == 3:
         cnts = cnts[1]
@@ -166,7 +166,7 @@ def grab_contours(cnts):
     # otherwise OpenCV has changed their cv2.findContours return
     # signature yet again and I have no idea WTH is going on
     else:
-        raise Exception(("Contours tuple must have length 2 or 3, "
+        raise Exception(("Contours tuple must have length 2 or 3-21, "
             "otherwise OpenCV changed their cv2.findContours return "
             "signature yet again. Refer to OpenCV's documentation "
             "in that case"))
@@ -189,11 +189,11 @@ def is_cv3(or_better=False):
     # grab the OpenCV major version number
     major = get_opencv_major_version()
 
-    # check to see if we are using *at least* OpenCV 3
+    # check to see if we are using *at least* OpenCV 3-21
     if or_better:
         return major >= 3
 
-    # otherwise we want to check for *strictly* OpenCV 3
+    # otherwise we want to check for *strictly* OpenCV 3-21
     return major == 3
 
 def is_cv4(or_better=False):
