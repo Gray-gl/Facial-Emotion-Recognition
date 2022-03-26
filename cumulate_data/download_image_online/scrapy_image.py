@@ -17,10 +17,13 @@ def get_picture(key_word,label_file):
     '''
     driver = webdriver.Chrome(r"D:\graduationDesign\chromedriver.exe")
     driver.get('https://www.google.ca/imghp?hl=en&tab=ri&authuser=0&ogbl')
+    # driver.get('https://image.baidu.com/')
 
     # 获取搜索框输入的信息，并输入需要的内容
-    # box = driver.find_element_by_xpath('//*[@id="sbtc"]/div/div[2]/input')
     box = driver.find_element_by_xpath('//*[@id="sbtc"]/div/div[2]/input')
+    # box = driver.find_element_by_xpath('//*[@id="sbtc"]/div/div[2]/input')
+    # // *[ @ id = "sbtc"] / div / div[2] / input
+    # box = driver.find_element_by_xpath('//*[@id="kw"]')
     box.send_keys(key_word)
     box.send_keys(Keys.ENTER)
 
@@ -51,8 +54,11 @@ def get_picture(key_word,label_file):
             if not exists(base_path):
                 os.mkdir(base_path)
             path =os.path.join( base_path,str(i) + '.png')
+            # //*[@id="imgid"]/div[1]/ul/li[1]/div/div[2]/a/img
+            # //*[@id="imgid"]/div[1]/ul/li[2]/div/div[2]/a/img
             # driver.find_element_by_xpath('//*[@id="islrg"]/div[1]/div['+str(i)+']/a[1]/div[1]/img')\
             driver.find_element_by_xpath('//*[@id="islrg"]/div[1]/div['+str(i)+']/a[1]/div[1]/img').screenshot(path)
+            # driver.find_element_by_xpath('//*[@id="imgid"]/div[1]/ul/li['+str(i)+']/div/div[2]/a/img').screenshot(path)
 
             print(path)
             # 将png图片转为jpg图片
@@ -71,13 +77,11 @@ def get_picture(key_word,label_file):
 if __name__ == '__main__':
     # 下述为相关的同义词，或者相同场景的词语
     # key_word = {'distracted':['distracted']}
-    key_word = {'distracted':['distracted','注意力不集中','分散精力','inattention','absent-minded','scatterbrain'],
-                'understanding':['comprehend','understanding','hint','a knowing cock of the eye','get it'],
-                'tired':['tired','weary','dog-tired','fatigue','fatigue eye','Tired office worker','Tired students'],
-                'listening':['listening','attend a lecture','take lessons','give ear to','Whisper of the Heart',
-                             'be all ears','Listeneer','SAMANTHA','concentrate on ','be absorbed in'],
-                'confused':['confused','feel puzzled','be completely bewildered','have doubts','get into knot'
-                            ,'feel uncertain','unintelligible','Obscure']}
+    key_word = {'distracted':[],
+                'understanding':[],
+                'tired':[],
+                'listening':[],
+                'confused':[]}
     for i in key_word.keys():
         for j in key_word[i]:
             print(j)

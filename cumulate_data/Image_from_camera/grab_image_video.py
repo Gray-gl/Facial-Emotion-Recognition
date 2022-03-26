@@ -4,6 +4,7 @@ import dlib
 import os
 import cv2
 import numpy
+from imutils import face_utils
 from numpy import random
 
 from Tools import GenJson
@@ -75,6 +76,16 @@ def return_128d_features(path_img):
 
     return face_descriptor
 
+# 获取所有特征点的中心点，以及1号点和17号点的放缩比例
+def get_center_magnitude(shape):
+    '''
+    获取68特征点的中心坐标，并求取长款放缩比例
+    :param shape:
+    :return:
+    '''
+
+    # 将shape转成numpy，并进行各自坐标轴的求和
+    shape.sum()
 
 def grab_frame_video(
         video_file: str,
@@ -100,6 +111,9 @@ def grab_frame_video(
     # 创建commonframe临时保存中间帧
     commonframe = os.path.join(output_dir, 'commonframe')
     os.mkdir(commonframe)
+    # 创建wholeframe临时保存中间帧
+    wholeframe = os.path.join(output_dir, 'wholeframe')
+    os.mkdir(wholeframe)
 
     # 初始化处理帧
     capture = cv2.VideoCapture(video_file)
@@ -120,6 +134,10 @@ def grab_frame_video(
         count = count + 1
         if count % 10 != 0:
             continue
+
+        # 保存对应的帧
+        temp_frame = os.path.join(wholeframe, str(index) + '.jpg')
+        cv2.imwrite(temp_frame,image)
 
         # 遍历每一个检测出来的人脸，生成对应json文件，获取特征点
         for i, d in enumerate(dets):
@@ -185,3 +203,27 @@ if __name__ == '__main__':
     output_dir = r'C:\Users\gray\Desktop\FacialEmotion\Facial-Emotion-Recognition\dataset\video\WIN_20220302_14_46_35_pro'
     # 从视频中抓取帧，并绘制对应表情信息图
     grab_frame_video(input_video,output_dir,size)
+
+    # # 这里用来进行测试，先保存一张图片的68个特征点   # img_rd = io.imread(path_img)
+    # path_img = r'C:\Users\gray\Desktop\FacialEmotion\Facial-Emotion-Recognition\dataset\video\WIN_20220302_14_46_35_pro\peakframe\1.jpg'
+    # path_img = cv2.imread(path_img)
+    # img_gray = cv2.cvtColor(path_img, cv2.COLOR_BGR2RGB)
+    # faces = detector(img_gray, 1)
+    #
+    #
+    # # 因为有可能截下来的人脸再去检测，检测不出来人脸了
+    # # 所以要确保是 检测到人脸的人脸图像 拿去算特征
+    # if len(faces) != 0:
+    #     shape = predictor(img_gray, faces[0])
+    #     # shape = face_utils.shape_to_np(shape)
+    #     # shape.partition()
+    #     print('\n',shape.num_parts)
+    #     for i in range(shape.num_parts):
+    #         print(shape.part(i))
+    #
+    #     print('\n',shape.parts)
+    #
+    #     print(shape.rect)
+    #
+    #
+    #
